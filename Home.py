@@ -24,7 +24,7 @@ if __name__ == '__main__':
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk mengubah Hari dan Jam Kerja</p>", unsafe_allow_html=True)
 
     if form_status['form1']:
-        st.success(f'Berhasil mengubah Hari dan Shift menjadi **:blu[{get_hari} {get_shift.lower()}]**')
+        st.success(f'Berhasil mengubah Hari dan Shift menjadi **:blue[{get_hari} {get_shift.lower()}]**')
     
 
     with st.form(key='data-form2', clear_on_submit=False):
