@@ -1,10 +1,6 @@
-import numpy as np
-import streamlit as st
-import pandas as pd
-from pathlib import Path
-import os
-import numpy as np
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-import io
-from docxtpl import DocxTemplate
+from docxtpl import DocxTemplate, InlineImage
 from datetime import datetime
+from pathlib import Path
+import streamlit as st
+from PIL import Image
+import os,io
