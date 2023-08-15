@@ -6,6 +6,7 @@ if __name__ == '__main__':
     with st.form(key='data-form', clear_on_submit=False):
         # TODO 1 : Waktu pelaksanaan
         tanggal_sekarang, jam_sekarang, shift_sekarang = get_jadwal_sekarang()
+        st.write(jam_sekarang)
 
         st.markdown(f"<h3 style='text-align:center;font-weight:bold;'>Waktu Pelaksanaan<h3>", unsafe_allow_html=True)
         col1, col2 = st.columns(2, gap='large')
