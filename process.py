@@ -131,9 +131,11 @@ def change_form_status(num_form:int, status:bool):
     form_status[f'form{num_form}'] = status
 
 def get_jadwal_sekarang():
-    #Jam dikurangi 4 karena servernya di US
+    #Jam ditambah 8 karena GMT+8
     tanggal_sekarang = datetime.now()
-    jam_sekarang = datetime.now().strftime("%H:%M:%S") + timedelta(hours=8)
+    jam_sekarang = datetime.now().strftime("%H:%M:%S")
+    #jam_sekarang ditambah 8
+    jam_sekarang = datetime.strptime(jam_sekarang, "%H:%M:%S") + timedelta(hours=8)
     shift_sekarang = get_current_shift(jam_sekarang)
     return tanggal_sekarang, jam_sekarang, shift_sekarang
 
