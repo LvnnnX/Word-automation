@@ -116,6 +116,7 @@ def get_docs(docs):
 
 
 def get_current_shift(jam_sekarang, shifts=translate_shift):
+    jam_sekarang = jam_sekarang.strftime("%H:%M:%S")
     shift_pagistart = translate_shift['Pagi'].split('-')[0].replace('.',':') + ':00'
     shift_siangstart = translate_shift['Siang'].split('-')[0].replace('.',':') + ':00'
     shift_malamstart = translate_shift['Malam'].split('-')[0].replace('.',':') + ':00'
