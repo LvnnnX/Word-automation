@@ -124,6 +124,7 @@ if __name__ == '__main__':
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
     if form2_submitbutton:
+        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Previews<h3>", unsafe_allow_html=True)
         col1, col2 = st.columns(2, gap='large')
         
         col1.text_input("Pembuat pertama", value=user1, disabled=True)
