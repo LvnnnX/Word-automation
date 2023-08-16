@@ -124,14 +124,18 @@ if __name__ == '__main__':
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
     if form2_submitbutton:
-        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Previews<h3>", unsafe_allow_html=True)
-        col1, col2 = st.columns(2, gap='large')
+        modal = Modal(key='Demo key', title='Preview')
+        with modal.container():
+            popup_clear_background()
+            st.write('testa')
+        # st.markdown("<h3 style='text-align:center;font-weight:bold;'>Previews<h3>", unsafe_allow_html=True)
+        # col1, col2 = st.columns(2, gap='large')
         
-        col1.text_input("Pembuat pertama", value=user1, disabled=True)
-        col1.text_area("Catatan", value=notes1, disabled=True)
+        # col1.text_input("Pembuat pertama", value=user1, disabled=True)
+        # col1.text_area("Catatan", value=notes1, disabled=True)
         
-        col2.text_input("Pembuat kedua", value=user2, disabled=True)
-        col2.text_area("Catatan", value=notes2, disabled=True)
+        # col2.text_input("Pembuat kedua", value=user2, disabled=True)
+        # col2.text_area("Catatan", value=notes2, disabled=True)
         
         # if(len(notes2) != 0):
         #     st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** dengan catatan {notes2[0:32]} {"..." if len(notes2) > 32 else ""}')

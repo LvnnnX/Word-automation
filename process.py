@@ -104,6 +104,19 @@ footer {visibility: hidden;}
 """,
     unsafe_allow_html=True,
 )
+    
+def popup_clear_background():
+    st.markdown(
+    """
+<style>
+
+[data-testid^="stVerticalBlock"]{
+    background-color: #0e1117;
+    padding: 50px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 def get_docs(docs):
     docs = DocxTemplate(ASSETS / docs)
