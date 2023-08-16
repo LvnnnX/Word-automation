@@ -9,8 +9,6 @@ if __name__ == '__main__':
 
         st.markdown(f"<h3 style='text-align:center;font-weight:bold;'>Waktu Pelaksanaan<h3>", unsafe_allow_html=True)
         col1, col2 = st.columns(2, gap='large')
-        
-        # col1.markdown("<p style='padding-bottom:-10px;font-weight:bold;padding-left:5px;'>Tanggal<p>", unsafe_allow_html=True)
 
         get_tanggal = col1.date_input(label='Tanggal',key="Tanggal-full", help='Tanggal hari ini adalah tanggal berapa?', value=tanggal_sekarang)
 
@@ -20,10 +18,10 @@ if __name__ == '__main__':
 
         get_jamkerja = col2.text_input("Jam Kerja (otomatis terganti)", value=translate_shift[get_shift], key='Jam-kerja', help="Jam kerja yang sedang berjalan", disabled=True)
 
-        form1_submitbutton = st.form_submit_button(label='Check', on_click=change_form_status(1, True))
+        form1_submitbutton = st.form_submit_button(label='Check')
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk mengubah Hari dan Jam Kerja</p>", unsafe_allow_html=True)
 
-    if form_status['form1']:
+    if form1_submitbutton:
         st.success(f'Berhasil mengubah Hari dan Shift menjadi **:blue[{get_hari} {get_shift.lower()}]**')
     
 
@@ -75,10 +73,10 @@ if __name__ == '__main__':
 
         notes1 = st.text_area('Catatan dan informasi penting', key='Catatan', help='Tuliskan catatan dan informasi penting disini', value='')
         
-        form2_submitbutton = st.form_submit_button(label='Check', on_click=change_form_status(2, True))
+        form2_submitbutton = st.form_submit_button(label='Check')
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk mengubah menyimpan perubahan</p>", unsafe_allow_html=True)
 
-    if form_status['form2']==True:
+    if form2_submitbutton==True:
         if(len(notes1) != 0):
             st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user1}]** dengan catatan {notes1[0:32]} {"..." if len(notes1) > 32 else ""}')
         else:
@@ -132,50 +130,39 @@ if __name__ == '__main__':
 
         notes2 = st.text_area('Catatan dan informasi penting', key='Catatan2', help='Tuliskan catatan dan informasi penting disini', value='')
         
-        form3_submitbutton = st.form_submit_button(label='Check', on_click=change_form_status(3, True))
+        form3_submitbutton = st.form_submit_button(label='Check')
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
-    if form_status['form3']:
+    if form3_submitbutton:
         if(len(notes2) != 0):
             st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** dengan catatan {notes2[0:32]} {"..." if len(notes2) > 32 else ""}')
         else:
             st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** tanpa catatan')
 
     try:
-        docs = change_docx(get_tanggal=get_tanggal, #1
-                        get_hari=get_hari, #0
-                        get_shift=get_shift, #1
-                        get_jamkerja=get_jamkerja, #2
-                        telepon_status=telepon_status, #3
-                        handphone_status=handphone_status, #4
-                        kamera_status=kamera_status, #5
-                        video_kamera_status=video_kamera_status,    #6
-                        laptop_pj1_status=laptop_pj1_status,    #7
-                        laptop_pj2_status=laptop_pj2_status,    #8
-                        widescreen_status=widescreen_status,    #9
-                        komputer_meteo_status=komputer_meteo_status,        #10
-                        synergie1_status=synergie1_status,  #11
-                        synergie2_status=synergie2_status,  #12
-                        synergie3_status=synergie3_status,  #13
-                        server_dmas_status=server_dmas_status,  #14
-                        server_produk_status=server_produk_status,  #15
-                        user1=user1,    #16
-                        notes1=notes1,  #17
-                        komputer_kerja1_status=komputer_kerja1_status,
-                        komputer_kerja2_status=komputer_kerja2_status,
-                        client_radar1_status=client_radar1_status,
-                        client_radar2_status=client_radar2_status,
-                        komputer_kerja3fct_status=komputer_kerja3fct_status,
-                        komputer_kerja3ndf_status=komputer_kerja3ndf_status,
-                        komputer_kerja3wfh_status=komputer_kerja3wfh_status,
-                        komputer_kerja6_status=komputer_kerja6_status,
-                        komputer_kerja7_status=komputer_kerja7_status,
-                        visumet_status=visumet_status,
-                        display_info_pelabuhan_status=display_info_pelabuhan_status,
-                        printer1_status=printer1_status,
-                        printer2_status=printer2_status,
-                        user2=user2,
-                        notes2=notes2) 
+        docs = change_docx(get_tanggal=get_tanggal,                         
+                           get_hari=get_hari,                         
+                           get_shift=get_shift,                         get_jamkerja=get_jamkerja,                         telepon_status=telepon_status,                         handphone_status=handphone_status,                         kamera_status=kamera_status,                         video_kamera_status=video_kamera_status,                            laptop_pj1_status=laptop_pj1_status,                            laptop_pj2_status=laptop_pj2_status,                            widescreen_status=widescreen_status,                            komputer_meteo_status=komputer_meteo_status,        synergie1_status=synergie1_status,  
+                           synergie2_status=synergie2_status,  
+                           synergie3_status=synergie3_status,  
+                           server_dmas_status=server_dmas_status,  server_produk_status=server_produk_status,  
+                           user1=user1,    
+                           notes1=notes1,  
+                           komputer_kerja1_status=komputer_kerja1_status,
+                           komputer_kerja2_status=komputer_kerja2_status,
+                           client_radar1_status=client_radar1_status,
+                           client_radar2_status=client_radar2_status,
+                           komputer_kerja3fct_status=komputer_kerja3fct_status,
+                           komputer_kerja3ndf_status=komputer_kerja3ndf_status,
+                           komputer_kerja3wfh_status=komputer_kerja3wfh_status,
+                           komputer_kerja6_status=komputer_kerja6_status,
+                           komputer_kerja7_status=komputer_kerja7_status,
+                           visumet_status=visumet_status,
+                           display_info_pelabuhan_status=display_info_pelabuhan_status,
+                           printer1_status=printer1_status,
+                           printer2_status=printer2_status,
+                           user2=user2,
+                           notes2=notes2) 
         
         bio = io.BytesIO()
         docs.save(bio)

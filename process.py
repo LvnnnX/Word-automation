@@ -13,12 +13,14 @@ translate_hari = {
 }
 
 translate_shift = {
+    #Nama Shift : Jam Kerja
     'Pagi' : '08.00 - 14.00 WITA',
     'Siang' : '14.00 - 20.30 WITA',
     'Malam' : '20.30 - 08.00 WITA'
 }
 
 translate_bulan = {
+    #Nomor Bulan : Nama Bulan
     '01' : 'Januari',
     '02' : 'Februari',
     '03' : 'Maret',
@@ -34,6 +36,7 @@ translate_bulan = {
 }
 
 translate_ttd = {
+    #Nama : [Nama File, NIP]
     'Diana Hikmah, S.Tr' : ['Diana Hikmah', '199202132012102001'],
     'Kd.Diana Anggariati.SP' : ['Diana Anggariati', '196705231990032002'],
     'I Wayan Wirata, S.Tr' : ['I Wayan Wirata','196705231990032002'],
@@ -50,14 +53,6 @@ translate_ttd = {
 }
 
 user = list(sorted(translate_ttd.keys()))
-
-form_status = {
-    'form1' : False,
-    'form2' : False,
-    'form3' : False,
-    'form4' : False,
-    'form5' : False
-}
 
 all_shift = ['Pagi', 'Siang', 'Malam']
 
@@ -126,10 +121,6 @@ def get_current_shift(jam_sekarang, shifts=translate_shift):
         return 'Siang'
     else:
         return 'Malam'
-
-def change_form_status(num_form:int, status:bool):
-    global form_status
-    form_status[f'form{num_form}'] = status
 
 def get_jadwal_sekarang():
     #Jam ditambah 8 karena GMT+8
