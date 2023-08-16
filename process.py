@@ -110,7 +110,7 @@ def popup_clear_background():
     """
 <style>
 
-[data-testid^="stVerticalBlock"]{
+div[data-modal-container='true'][key='Demo key'] > div:first-child > div:first-child{ 
     background-color: #0e1117;
     padding: 50px;
 }
