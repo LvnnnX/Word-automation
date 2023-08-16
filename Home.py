@@ -73,16 +73,6 @@ if __name__ == '__main__':
 
         notes1 = st.text_area('Catatan dan informasi penting', key='Catatan', help='Tuliskan catatan dan informasi penting disini', value='')
         
-        form2_submitbutton = st.form_submit_button(label='Check')
-        st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk mengubah menyimpan perubahan</p>", unsafe_allow_html=True)
-
-    if form2_submitbutton==True:
-        if(len(notes1) != 0):
-            st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user1}]** dengan catatan {notes1[0:32]} {"..." if len(notes1) > 32 else ""}')
-        else:
-            st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user1}]** tanpa catatan')
-
-    with st.form(key='data-form3', clear_on_submit=False):
         # TODO 3 : Data tabel 2
         st.markdown("<h3 style='text-align:center;font-weight:bold;'>Kondisi Peralatan Operasional<h3>", unsafe_allow_html=True)
         col3, col4 = st.columns(2, gap='large')
@@ -130,10 +120,10 @@ if __name__ == '__main__':
 
         notes2 = st.text_area('Catatan dan informasi penting', key='Catatan2', help='Tuliskan catatan dan informasi penting disini', value='')
         
-        form3_submitbutton = st.form_submit_button(label='Check')
+        form2_submitbutton = st.form_submit_button(label='Check')
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
-    if form3_submitbutton:
+    if form2_submitbutton:
         if(len(notes2) != 0):
             st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** dengan catatan {notes2[0:32]} {"..." if len(notes2) > 32 else ""}')
         else:
