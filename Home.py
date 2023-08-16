@@ -124,23 +124,31 @@ if __name__ == '__main__':
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
     if form2_submitbutton:
-        modal = Modal(key='Demo key', title='Preview')
+        modal = Modal(key='Demo key', title='Preview', padding=10)
         with modal.container():
             popup_clear_background()
-            st.write('testa')
-        # st.markdown("<h3 style='text-align:center;font-weight:bold;'>Previews<h3>", unsafe_allow_html=True)
-        # col1, col2 = st.columns(2, gap='large')
-        
-        # col1.text_input("Pembuat pertama", value=user1, disabled=True)
-        # col1.text_area("Catatan", value=notes1, disabled=True)
-        
-        # col2.text_input("Pembuat kedua", value=user2, disabled=True)
-        # col2.text_area("Catatan", value=notes2, disabled=True)
-        
-        # if(len(notes2) != 0):
-        #     st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** dengan catatan {notes2[0:32]} {"..." if len(notes2) > 32 else ""}')
-        # else:
-        #     st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** tanpa catatan')
+            # st.write('testa')
+            # st.markdown("<h3 style='text-align:center;font-weight:bold;'>Previews<h3>", unsafe_allow_html=True)
+            col1, col2 = st.columns(2, gap='large')
+            
+            col1.date_input(label='Tanggal',key="Tanggal-full-preview", help='Tanggal hari ini adalah tanggal berapa?', value=tanggal_sekarang, disabled=True)
+
+            col2.text_input("Hari (otomatis terganti)", value=translate_hari[get_tanggal.strftime("%A")], key='Hari-sekarang-preview', help='Hari ini adalah hari apa?', disabled=True)
+
+            col1.selectbox("Shift", options=all_shift, key='Shift-sekarang-preview', help='Shift apa yang sedang berjalan?', index=all_shift.index(shift_sekarang), disabled=True)
+
+            col2.text_input("Jam Kerja (otomatis terganti)", value=translate_shift[get_shift], key='Jam-kerja-preview', help="Jam kerja yang sedang berjalan", disabled=True)
+            
+            col1.text_input("Pembuat pertama", value=user1, disabled=True)
+            col1.text_area("Catatan", value=notes1, disabled=True, key='preview-catatan-1')
+            
+            col2.text_input("Pembuat kedua", value=user2, disabled=True)
+            col2.text_area("Catatan", value=notes2, disabled=True, key='preview-catatan-2')
+            
+            # if(len(notes2) != 0):
+            #     st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** dengan catatan {notes2[0:32]} {"..." if len(notes2) > 32 else ""}')
+            # else:
+            #     st.success(f'Berhasil mengubah nama pembuat menjadi **:blue[{user2}]** tanpa catatan')
 
     try:
         docs = change_docx(get_tanggal=get_tanggal,                         
