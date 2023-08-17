@@ -5,13 +5,15 @@ import home.EvaluasiPub as EvaluasiPub
 import home.Internet as Internet
 import home.Maritim as Maritim
 import home.Radar as Radar
+import home.Radio as Radio
+import home.Website as Website
 
 if __name__ == '__main__':
     with st.sidebar:
         selected = option_menu(
             menu_title= None,
-            options=['Cek Alat','Evaluasi Cuaca Maritim','Evaluasi Kondisi Cuaca','Internet','Maritim','Radar'],
-            icons=['house-gear','cloud-fog2','clouds','wifi','water','broadcast'],
+            options=['Cek Alat','Evaluasi Cuaca Maritim','Evaluasi Kondisi Cuaca','Internet','Maritim','Radar','Radio','Website'],
+            icons=['house-gear','cloud-fog2','clouds','wifi','water','broadcast','music-player','globe'],
             menu_icon='cast',
             default_index=0,
             orientation='vertical',
@@ -29,5 +31,10 @@ elif selected == 'Maritim':
     Maritim.start_maritim()
 elif selected == 'Radar':
     Radar.start_radar()
+elif selected == 'Radio':
+    Radio.start_radio()
+elif selected == 'Website':
+    Website.start_website()
+    
    
         

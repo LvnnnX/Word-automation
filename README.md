@@ -29,7 +29,7 @@ Open your CMD in current directory by right clicking in your file explorer and t
 - [x] Internet
 - [x] Maritim
 - [x] Radar
-- [ ] Website
+- [x] Website
+- [x] Radio
 - [x] Add success check notification
 - [x] Publish to Streamlit
-- [ ] 

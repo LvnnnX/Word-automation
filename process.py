@@ -10,7 +10,6 @@ with open(PATH / 'list-shift-full.txt', 'r') as f:
     lsshf = f.read()
 translate_shift = json.loads(lsshf)
 
-
 with open(PATH / 'list-bulan.txt', 'r') as f:
     lsbln = f.read()    
 translate_bulan = json.loads(lsbln)
@@ -18,6 +17,15 @@ translate_bulan = json.loads(lsbln)
 all_shift = ['Pagi', 'Siang', 'Malam', 'Tengah Malam']
 
 options = ['Baik', 'Rusak', 'Kosong']
+
+def get_media():
+    with open(PATH / 'list-media-radio.json','r') as f:
+        data = json.load(f)
+        list_media = data['Media']
+        all = []
+        for media in list_media:
+            all.append(media['name'])
+    return all
 
 def get_pegawai():
     list_pegawai = pd.read_excel('list-pegawai.xlsx')
