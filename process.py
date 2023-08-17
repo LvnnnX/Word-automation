@@ -2,61 +2,32 @@ from library import *
 PATH = Path(__file__).parent
 ASSETS = PATH / "assets"
 
-translate_hari = {
-    'Monday': 'Senin',
-    'Tuesday': 'Selasa',
-    'Wednesday': 'Rabu',
-    'Thursday': 'Kamis',
-    'Friday': 'Jumat',
-    'Saturday': 'Sabtu',
-    'Sunday': 'Minggu'
-}
+with open(PATH / 'list-hari.txt', 'r') as f:
+    lshr = f.read()
+translate_hari = json.loads(lshr)
 
-translate_shift = {
-    #Nama Shift : Jam Kerja
-    'Pagi' : '08.00 - 14.00 WITA',
-    'Siang' : '14.00 - 20.30 WITA',
-    'Malam' : '20.30 - 08.00 WITA'
-}
+with open(PATH / 'list-shift-full.txt', 'r') as f:
+    lsshf = f.read()
+translate_shift = json.loads(lsshf)
 
-translate_bulan = {
-    #Nomor Bulan : Nama Bulan
-    '01' : 'Januari',
-    '02' : 'Februari',
-    '03' : 'Maret',
-    '04' : 'April',
-    '05' : 'Mei',
-    '06' : 'Juni',
-    '07' : 'Juli',
-    '08' : 'Agustus',
-    '09' : 'September',
-    '10' : 'Oktober',
-    '11' : 'November',
-    '12' : 'Desember'
-}
 
-translate_ttd = {
-    #Nama : [Nama File, NIP]
-    'Diana Hikmah, S.Tr' : ['Diana Hikmah', '199202132012102001'],
-    'Kd.Diana Anggariati.SP' : ['Diana Anggariati', '196705231990032002'],
-    'I Wayan Wirata, S.Tr' : ['I Wayan Wirata','196705231990032002'],
-    'Ni Wayan Budhi Aggraeni, ST.' : ['Budhi Aggraeni','197804042008012032'],
-    'Kadek Setiya Wati, S.Tr' : ['Kadek Setiya Wati', '198906032010122002'],
-    'I Gusti Ayu Putu Putri Astiduari, S.Tr' : ['Putri Astiduari', '199308182013121001'],
-    'I Wayan Gita Giriharta. S.Tr.Met' : ['Gita Giriharta', '199604012016011001'],
-    'A.A.Putu Eka Putra Wirawan' : ['Eka Putra Wirawan', '198212232006041002'],
-    'I Made SudarmaYadnya, S.Si' : ['SudarmaYadnya', '19810322 200701 1 013'],
-    'Ni Putu Lia Cahyani' : ['Lia Cahyani', '198503012007012003'],
-    'Putu Agus Dedy Permana, S. Tr' : ['Dedy Permana', '199308092013121001'],
-    'Wulan Wandarana, S.Tr' : ['Wulan Wandarana', '199505142014112001'],
-    'Luh Eka Arisanti, S.Si' : ['Eka Arisanti', '198909272010122001'],
-}
+with open(PATH / 'list-bulan.txt', 'r') as f:
+    lsbln = f.read()    
+translate_bulan = json.loads(lsbln)
 
-user = list(sorted(translate_ttd.keys()))
-
-all_shift = ['Pagi', 'Siang', 'Malam']
+all_shift = ['Pagi', 'Siang', 'Malam', 'Tengah Malam']
 
 options = ['Baik', 'Rusak', 'Kosong']
+
+def get_pegawai():
+    list_pegawai = pd.read_excel('list-pegawai.xlsx')
+    list_pegawai = list_pegawai.sort_values(by=['Nama'], ascending=True)
+    list_pegawai = list_pegawai.to_dict()
+
+    user = tuple(list_pegawai['Nama'].values())
+    user_filename = tuple(list_pegawai['Nama File'].values())
+    user_nip = tuple(list_pegawai['NIP'].values())
+    return user, user_filename, user_nip
 
 def clear_background():
     st.markdown(
@@ -105,10 +76,39 @@ footer {visibility: hidden;}
     unsafe_allow_html=True,
 )
 
+def popup_clear_background():
+    st.markdown(
+    """
+<style>
+div[data-modal-container='true'][key='Demo key'] > div:first-child > div:first-child{
+    background-color:#0e1117;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def get_docs(docs):
     docs = DocxTemplate(ASSETS / docs)
     return docs
 
+
+def find_filename(name):
+    name = glob.glob(f'{ASSETS}/{name}.*')
+    return name[0]
+
+def get_image(location):
+    image = Image.open(os.path.join(location))
+    return image
+
+def get_dataframe(nama_dataframe:str):
+    df = pd.read_excel(PATH / f'{nama_dataframe}.xlsx', index_col=0)
+    df.index +=1 
+    return df
+
+def save_image(file_uploaded, name):
+    if file_uploaded is not '':
+        file_uploaded.name = name + '.' + file_uploaded.name.split('.')[-1]
+        with open(os.path.join(ASSETS,file_uploaded.name),"wb") as f:
+            f.write(file_uploaded.getbuffer())
 
 def get_current_shift(jam_sekarang, shifts=translate_shift):
     jam_sekarang = jam_sekarang.strftime("%H:%M:%S")
@@ -131,6 +131,12 @@ def get_jadwal_sekarang():
     shift_sekarang = get_current_shift(jam_sekarang)
     return tanggal_sekarang, jam_sekarang, shift_sekarang
 
+def change_tanggal(tanggal):
+    tanggal = tanggal.strftime("%d %m %Y")
+    tanggal = tanggal.split(' ')
+    tanggal[1] = translate_bulan[tanggal[1]]
+    tanggal = ' '.join(tanggal)
+    return tanggal
 
 def make_table(num_rows:int, variables:list[int], context:dict, kwargs:dict):
         list_variables = []
@@ -149,8 +155,9 @@ def make_table(num_rows:int, variables:list[int], context:dict, kwargs:dict):
         return context
 
 
-def change_docx(get_tanggal,**kwargs):
-    template_docs = get_docs('data1.docx')
+def cek_alat(get_tanggal,**kwargs):
+    template_docs = get_docs('template-cekalat.docx')
+    user, user_filename, user_nip = get_pegawai()
     context = {}
 
     #Tanggal
@@ -179,10 +186,10 @@ def change_docx(get_tanggal,**kwargs):
     context['user1'] = kwargs['user1']
 
     #NIP user1
-    context['user1nip'] = translate_ttd[kwargs['user1']][1]
+    context['user1nip'] = user_nip[user.index(kwargs['user1'])].replace('\'','')
 
     #TTD user1
-    context['user1ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{translate_ttd[kwargs['user1']][0]}.jpg"))
+    context['user1ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_filename[user.index(kwargs['user1'])])}"))
     #Catatan
     context['notes1'] = kwargs['notes1']
 
@@ -196,13 +203,61 @@ def change_docx(get_tanggal,**kwargs):
     context['user2'] = kwargs['user2']
 
     #NIP user2
-    context['user2nip'] = translate_ttd[kwargs['user2']][1]
+    context['user2nip'] = user_nip[user.index(kwargs['user2'])].replace('\'','')
 
     #TTD user2
-    context['user2ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{translate_ttd[kwargs['user2']][0]}.jpg"))
+    context['user2ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_filename[user.index(kwargs['user2'])])}"))
 
     #Catatan
     context['notes2'] = kwargs['notes2']
 
+    template_docs.render(context=context)
+    return template_docs
+
+def evaluasi_cuaca_maritim(tanggal1,tanggal2,**kwargs):
+    template_docs = get_docs(ASSETS / 'template-evaluasimaritim.docx')
+    user, user_filename, user_nip = get_pegawai()
+    context = {}
+    
+    #Tanggal
+    tanggal1 = tanggal1.strftime("%d %m %Y")
+    tanggal1 = tanggal1.split(' ')
+    tanggal1[1] = translate_bulan[tanggal1[1]]
+    tanggal1 = ' '.join(tanggal1)
+    context['datetime1'] = tanggal1
+    
+    #Jam1
+    context['jam'] = str(kwargs['jam'])[0:5].replace(':','.')
+    
+    #Tanggal2
+    tanggal2 = tanggal2.strftime("%d %m %Y")
+    tanggal2 = tanggal2.split(' ')
+    tanggal2[1] = translate_bulan[tanggal2[1]]
+    tanggal2 = ' '.join(tanggal2)
+    context['datetime2'] = tanggal2
+    
+    #Jam2
+    context['jam2'] = kwargs['jam2']
+    
+    #Dasar pertimbangan
+    context['dasar_pertimbangan1'] = kwargs['dasar_pertimbangan1']
+    context['text_rendah'] = kwargs['text_rendah']
+    context['text_sedang'] = kwargs['text_sedang']
+    context['text_tinggi'] = kwargs['text_tinggi']
+    context['text_sangattinggi'] = kwargs['text_sangattinggi']
+    context['dasar_pertimbangan2'] = kwargs['dasar_pertimbangan2']
+    context['image1'] = InlineImage(template_docs, kwargs['image_1'], width=Mm(75), height=Mm(80))
+    context['image2'] = InlineImage(template_docs, kwargs['image_2'], width=Mm(75), height=Mm(80))
+    
+    #Kesimpulan
+    context['kesimpulan'] = kwargs['kesimpulan']
+    
+    #User
+    context['user1_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_filename[user.index(kwargs['user1'])])}"))
+    
+    context['user1'] = kwargs['user1']
+    
+    context['user1_nip'] = user_nip[user.index(kwargs['user1'])].replace('\'','')
+    
     template_docs.render(context=context)
     return template_docs
