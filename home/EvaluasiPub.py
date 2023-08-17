@@ -126,9 +126,9 @@ def start_evaluasi_pub():
             context['kesimpulan'] = kesimpulan
             
             #User
-            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{user_file[user.index(user1)]}.jpg"))
-        
             context['user'] = user1
+        
+            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user1)])}'))
             
             context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
             
@@ -143,5 +143,6 @@ def start_evaluasi_pub():
                     file_name=f'EvaluasiPub-{get_tanggal1.strftime("%Y%m%d")}.docx',
                     mime='docx'
                 )
-        except:
+        except Exception as e:
+            # st.write(e)
             st.error(f'Lengkapi data terlebih dahulu!')

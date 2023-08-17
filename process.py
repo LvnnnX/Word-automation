@@ -1,6 +1,8 @@
 from library import *
 PATH = Path(__file__).parent
 ASSETS = PATH / "assets"
+DOCS = ASSETS / "word"
+TTD = ASSETS / "ttd"
 
 with open(PATH / 'list-hari.txt', 'r') as f:
     lshr = f.read()
@@ -95,12 +97,12 @@ div[data-modal-container='true'][key='Demo key'] > div:first-child > div:first-c
 """, unsafe_allow_html=True)
 
 def get_docs(docs):
-    docs = DocxTemplate(ASSETS / docs)
+    docs = DocxTemplate(DOCS / docs)
     return docs
 
 
 def find_filename(name):
-    name = glob.glob(f'{ASSETS}/{name}.*')
+    name = glob.glob(f'{TTD}/{name}.*')
     return name[0]
 
 def get_image(location):
@@ -223,29 +225,21 @@ def cek_alat(get_tanggal,**kwargs):
     return template_docs
 
 def evaluasi_cuaca_maritim(tanggal1,tanggal2,**kwargs):
-    template_docs = get_docs(ASSETS / 'template-evaluasimaritim.docx')
+    template_docs = get_docs('template-evaluasimaritim.docx')
     user, user_filename, user_nip = get_pegawai()
     context = {}
     
     #Tanggal
-    tanggal1 = tanggal1.strftime("%d %m %Y")
-    tanggal1 = tanggal1.split(' ')
-    tanggal1[1] = translate_bulan[tanggal1[1]]
-    tanggal1 = ' '.join(tanggal1)
-    context['datetime1'] = tanggal1
+    context['datetime1'] = change_tanggal(tanggal1)
     
     #Jam1
     context['jam'] = str(kwargs['jam'])[0:5].replace(':','.')
     
     #Tanggal2
-    tanggal2 = tanggal2.strftime("%d %m %Y")
-    tanggal2 = tanggal2.split(' ')
-    tanggal2[1] = translate_bulan[tanggal2[1]]
-    tanggal2 = ' '.join(tanggal2)
-    context['datetime2'] = tanggal2
+    context['datetime2'] = change_tanggal(tanggal2)
     
     #Jam2
-    context['jam2'] = kwargs['jam2']
+    context['jam2'] = str(kwargs['jam2'])[0:5].replace(':','.')
     
     #Dasar pertimbangan
     context['dasar_pertimbangan1'] = kwargs['dasar_pertimbangan1']

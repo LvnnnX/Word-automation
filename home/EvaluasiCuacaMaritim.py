@@ -91,5 +91,6 @@ def start_evaluasi_cuaca_maritim():
                 file_name=f'EvaluasiMar-{get_tanggal1.strftime("%Y%m%d")}.docx',
                 mime='docx'
             )
-        except:
+        except Exception as e:
+            # st.write(e)
             st.error('Mohon lengkapi data terlebih dahulu')
