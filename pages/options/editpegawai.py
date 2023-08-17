@@ -1,6 +1,5 @@
 from library import *
 from process import *
-import home.get_ttd as ttd
 
 def find_filename(name):
     name = glob.glob(f'{ASSETS}/{name}.*')
