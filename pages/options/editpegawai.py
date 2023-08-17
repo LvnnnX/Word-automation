@@ -23,7 +23,6 @@ def show_edit_menu():
         except:
             ttd_nama = _namapegawai
         col1,col2 = st.columns(2, gap='medium')
-        
         _namaedited = col1.text_input(label='Nama Pegawai',key='nama-edited',value=_namapegawai)
         
         _nippegawai = col2.text_input(label='NIP Pegawai',key='nip-pegawai',value=str(df[df['Nama']==_namapegawai]['NIP'].values[0]))
@@ -36,9 +35,10 @@ def show_edit_menu():
             
             _ttdedit = col2.file_uploader(label='Upload TTD Pegawai',key='ttd-pegawai',type=['jpg','png','jpeg'],accept_multiple_files=False)
             
-        except:
+        except ValueError as e:
+            st.write(e)
             error = True
-            st.error(f'TTD Tidak ditemukan!')
+            # st.error(f'TTD Tidak ditemukan!')
         
         button2 = st.form_submit_button('Simpan')
 

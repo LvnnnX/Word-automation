@@ -102,8 +102,11 @@ def get_docs(docs):
 
 
 def find_filename(name):
-    name = glob.glob(f'{TTD}/{name}.*')
-    return name[0]
+    try:
+        named = glob.glob(f'{TTD}/{name}.*')
+        return named[0]
+    except:
+        return ValueError
 
 def get_image(location):
     image = Image.open(os.path.join(location))
