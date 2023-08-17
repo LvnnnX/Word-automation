@@ -23,13 +23,13 @@ Open your CMD in current directory by right clicking in your file explorer and t
 
 
 # Todo
-- [x] Options for Pegawai
+- [x] Options for Pegawai 
 - [x] Evaluasi Cuaca Maritim 
-- [ ] Evaluasi Kondisi Cuaca (needs an error msg)
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [x] Evaluasi Kondisi Cuaca 
+- [x] Internet
+- [x] Maritim
+- [ ] Radar
+- [ ] Website
+- [ ] Add success check notification
 - [ ] 
 - [ ] 

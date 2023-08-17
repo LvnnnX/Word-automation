@@ -33,6 +33,7 @@ def start_internet():
         publik2 = col1.file_uploader('Penyebaran data internet (Media Sosial telegram)', type=['png','jpg','jpeg'], key='penyebaran-data-inet2', accept_multiple_files=False)
         
         publik3 = col2.file_uploader('Penyebaran data internet (Media Sosial instagram)', type=['png','jpg','jpeg'], key='penyebaran-data-inet3', accept_multiple_files=False)
+        st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         
         user1 = st.selectbox('Dibuat Oleh', options=user, key='user1')
         
@@ -47,53 +48,59 @@ def start_internet():
         
         maritim3 = col2.file_uploader('Penyebaran data internet (Media Sosial instagram)', type=['png','jpg','jpeg'], key='penyebaran-data-inet6', accept_multiple_files=False)
         
+        st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
+        
         user2 = st.selectbox('Dibuat Oleh', options=user, key='user2')
         
         button1 = st.form_submit_button(label='Submit')
     
     if(button1):
-        template_docs = get_docs('template-internet.docx')
-        context = {}
-        
-        #Tanggal
-        context['date'] = change_tanggal(get_tanggal)
-        
-        #Publik
-        context['publik1'] = InlineImage(template_docs, publik1, width=Mm(161), height=Mm(83.5))
-        
-        context['publik2'] = InlineImage(template_docs, publik2, width=Mm(81.2), height=Mm(52.8))
-        
-        context['publik3'] = InlineImage(template_docs, publik3, width=Mm(81.2), height=Mm(52.8))
-        
-        #User1
-        context['user1'] = user1
-        
-        context['user1_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user1)])}"))
-        
-        context['user1_nip'] = user_nip[user.index(user1)].replace('\'','')
-                
-        #Maritim
-        
-        context['maritim1'] = InlineImage(template_docs, maritim1, width=Mm(161), height=Mm(83.5))
-        
-        context['maritim2'] = InlineImage(template_docs, maritim2, width=Mm(81.2), height=Mm(52.8))
-        
-        context['maritim3'] = InlineImage(template_docs, maritim3, width=Mm(81.2), height=Mm(52.8))
-        
-        #User2
-        context['user2'] = user2
-        
-        context['user2_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user2)])}"))
-        
-        context['user2_nip'] = user_nip[user.index(user2)].replace('\'','')
-        
-        template_docs.render(context=context)
-        
-        bio = io.BytesIO()
-        template_docs.save(bio)
-        st.download_button(
-                label="Download file",
-                data=bio.getvalue(),
-                file_name=f'Internet-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
-                mime='docx'
-            )
+        try:
+            template_docs = get_docs('template-internet.docx')
+            context = {}
+            
+            #Tanggal
+            context['date'] = change_tanggal(get_tanggal)
+            
+            #Publik
+            context['publik1'] = InlineImage(template_docs, publik1, width=Mm(161), height=Mm(83.5))
+            
+            context['publik2'] = InlineImage(template_docs, publik2, width=Mm(81.2), height=Mm(52.8))
+            
+            context['publik3'] = InlineImage(template_docs, publik3, width=Mm(81.2), height=Mm(52.8))
+            
+            #User1
+            context['user1'] = user1
+            
+            context['user1_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user1)])}"))
+            
+            context['user1_nip'] = user_nip[user.index(user1)].replace('\'','')
+                    
+            #Maritim
+            
+            context['maritim1'] = InlineImage(template_docs, maritim1, width=Mm(161), height=Mm(83.5))
+            
+            context['maritim2'] = InlineImage(template_docs, maritim2, width=Mm(81.2), height=Mm(52.8))
+            
+            context['maritim3'] = InlineImage(template_docs, maritim3, width=Mm(81.2), height=Mm(52.8))
+            
+            #User2
+            context['user2'] = user2
+            
+            context['user2_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user2)])}"))
+            
+            context['user2_nip'] = user_nip[user.index(user2)].replace('\'','')
+            
+            template_docs.render(context=context)
+            st.success('Data tersimpan, silahkan download file')
+            
+            bio = io.BytesIO()
+            template_docs.save(bio)
+            st.download_button(
+                    label="Download file",
+                    data=bio.getvalue(),
+                    file_name=f'Internet-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
+                    mime='docx'
+                )
+        except:
+            st.error('Lengkapi data terlebih dahulu!')

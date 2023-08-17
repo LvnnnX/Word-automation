@@ -31,6 +31,7 @@ def start_evaluasi_pub():
         isobar_img = col2.file_uploader('', type=['png','jpg','jpeg'], key='isobar-img', accept_multiple_files=False,label_visibility='visible')
         
         col1,col2,col3,col4 = st.columns(4)
+        col3.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         isobar_jam = col1.time_input('Waktu pengambilan gambar Isobar', value=jam_sekarang, key='isobar-jam')
         
         isobar_tgl = col2.date_input('Tanggal pengambilan gambar Isobar', value=tanggal_sekarang, key='isobar-tgl')
@@ -41,6 +42,7 @@ def start_evaluasi_pub():
         streamline_img = col2.file_uploader('', type=['png','jpg','jpeg'], key='streamline-img', accept_multiple_files=False,label_visibility='visible')
         
         col1,col2,col3,col4 = st.columns(4)
+        col3.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         streamline_jam = col1.time_input('Waktu pengambilan gambar Streamline', value=jam_sekarang, key='streamline-jam')
         
         streamline_date = col2.date_input('Tanggal pengambilan gambar Streamline', value=tanggal_sekarang, key='Streamline-tgl')
@@ -51,6 +53,7 @@ def start_evaluasi_pub():
         radar_img = col2.file_uploader('', type=['png','jpg','jpeg'], key='radar-img', accept_multiple_files=False,label_visibility='visible')
         
         col1,col2,col3,col4 = st.columns(4)
+        col3.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         Radar_jam = col1.time_input('Waktu pengambilan gambar Radar', value=jam_sekarang, key='Radar-jam')
         
         Radar_tgl = col2.date_input('Tanggal pengambilan gambar Radar', value=tanggal_sekarang, key='Radar-tgl')
@@ -61,9 +64,11 @@ def start_evaluasi_pub():
         satelit_img = col2.file_uploader('', type=['png','jpg','jpeg'], key='satelit-img', accept_multiple_files=False,label_visibility='visible')
         
         col1,col2,col3,col4 = st.columns(4)
+        col3.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         Satelit_jam = col1.time_input('Waktu pengambilan gambar Satelit', value=jam_sekarang, key='Satelit-jam')
         
         Satelit_tgl = col2.date_input('Tanggal pengambilan gambar Satelit', value=tanggal_sekarang, key='Satelit-tgl')
+        
         
         khusus = st.text_area('Cuaca Khusus', value='', key='khusus')
         
@@ -78,61 +83,65 @@ def start_evaluasi_pub():
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
         
     if button:
-        template_docs = get_docs('template-evaluasipub.docx')
-        context = {}
-        
-        #Tanggal
-        context['date1'] = change_tanggal(get_tanggal1)
-        
-        #Jam1
-        context['jam1'] = str(get_jam1)[0:5].replace(':','.')
-        
-        #Tanggal2
-        context['date2'] = change_tanggal(get_tanggal2)
-        
-        #Jam2
-        context['jam2'] = str(get_jam2)[0:5].replace(':','.')
-        
-        #Dasar pertimbangan
-        context['analisa_isobar'] = analisa_isobar
-        context['analisis_streamline'] = analisis_streamline
-        context['radar_cuaca'] = radar_cuaca
-        context['satelit_himawari'] = satelit
-        context['khusus'] = khusus
-        
-        #Images
-        context['isobar_img'] = InlineImage(template_docs, isobar_img, height=Mm(40), width=Mm(76))
-        context['streamline_img'] = InlineImage(template_docs, streamline_img, height=Mm(40), width=Mm(76))
-        context['radar_img'] = InlineImage(template_docs, radar_img, height=Mm(40), width=Mm(76))
-        context['satelit_img'] = InlineImage(template_docs, satelit_img, height=Mm(40), width=Mm(76))
-        
-        #Images Keterangan
-        context['isobar_jam'] = str(isobar_jam)[0:5].replace(':','.')
-        context['isobar_date'] = change_tanggal(isobar_tgl)
-        context['str_jam'] = str(streamline_jam)[0:5].replace(':','.')
-        context['str_date'] = change_tanggal(streamline_date)
-        context['rdr_jam'] = str(Radar_jam)[0:5].replace(':','.')
-        context['rdr_date'] = change_tanggal(Radar_tgl)
-        context['stlt_jam'] = str(Satelit_jam)[0:5].replace(':','.')
-        context['stlt_date'] = change_tanggal(Satelit_tgl)
+        try:
+            template_docs = get_docs('template-evaluasipub.docx')
+            context = {}
             
-        #Kesimpulan
-        context['kesimpulan'] = kesimpulan
+            #Tanggal
+            context['date1'] = change_tanggal(get_tanggal1)
+            
+            #Jam1
+            context['jam1'] = str(get_jam1)[0:5].replace(':','.')
+            
+            #Tanggal2
+            context['date2'] = change_tanggal(get_tanggal2)
+            
+            #Jam2
+            context['jam2'] = str(get_jam2)[0:5].replace(':','.')
+            
+            #Dasar pertimbangan
+            context['analisa_isobar'] = analisa_isobar
+            context['analisis_streamline'] = analisis_streamline
+            context['radar_cuaca'] = radar_cuaca
+            context['satelit_himawari'] = satelit
+            context['khusus'] = khusus
+            
+            #Images
+            context['isobar_img'] = InlineImage(template_docs, isobar_img, height=Mm(40), width=Mm(76))
+            context['streamline_img'] = InlineImage(template_docs, streamline_img, height=Mm(40), width=Mm(76))
+            context['radar_img'] = InlineImage(template_docs, radar_img, height=Mm(40), width=Mm(76))
+            context['satelit_img'] = InlineImage(template_docs, satelit_img, height=Mm(40), width=Mm(76))
+            
+            #Images Keterangan
+            context['isobar_jam'] = str(isobar_jam)[0:5].replace(':','.')
+            context['isobar_date'] = change_tanggal(isobar_tgl)
+            context['str_jam'] = str(streamline_jam)[0:5].replace(':','.')
+            context['str_date'] = change_tanggal(streamline_date)
+            context['rdr_jam'] = str(Radar_jam)[0:5].replace(':','.')
+            context['rdr_date'] = change_tanggal(Radar_tgl)
+            context['stlt_jam'] = str(Satelit_jam)[0:5].replace(':','.')
+            context['stlt_date'] = change_tanggal(Satelit_tgl)
+                
+            #Kesimpulan
+            context['kesimpulan'] = kesimpulan
+            
+            #User
+            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{user_file[user.index(user1)]}.jpg"))
         
-        #User
-        context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{user_file[user.index(user1)]}.jpg"))
-    
-        context['user'] = user1
-        
-        context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
-        
-        template_docs.render(context=context)
+            context['user'] = user1
+            
+            context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
+            
+            template_docs.render(context=context)
+            st.success('Data berhasil tersimpan, silahkan download file')
 
-        bio = io.BytesIO()
-        template_docs.save(bio)
-        st.download_button(
-                label="Download file",
-                data=bio.getvalue(),
-                file_name=f'EvaluasiPub-{get_tanggal1.strftime("%Y%m%d")}.docx',
-                mime='docx'
-            )
+            bio = io.BytesIO()
+            template_docs.save(bio)
+            st.download_button(
+                    label="Download file",
+                    data=bio.getvalue(),
+                    file_name=f'EvaluasiPub-{get_tanggal1.strftime("%Y%m%d")}.docx',
+                    mime='docx'
+                )
+        except:
+            st.error(f'Lengkapi data terlebih dahulu!')

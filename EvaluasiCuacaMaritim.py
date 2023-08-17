@@ -67,33 +67,29 @@ def start_evaluasi_cuaca_maritim():
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk menyimpan perubahan</p>", unsafe_allow_html=True)
 
     if form1_submitbutton:
-        if(None in [image_1,image_2]):
-            st.error('Mohon masukkan gambar')
-        else:
-            st.success(f'Berhasil mengupdate data')
-        
-    try:
-        docs = evaluasi_cuaca_maritim(get_tanggal1,get_tanggal2,
-                                    jam=get_jam1,
-                                    jam2=get_jam2,
-                                    dasar_pertimbangan1=dasar_pertimbangan1,
-                                    dasar_pertimbangan2=dasar_pertimbangan2,
-                                    text_rendah=text_rendah,
-                                    text_sedang=text_sedang,
-                                    text_tinggi=text_tinggi,
-                                    text_sangattinggi=text_sangattinggi,
-                                    image_1=image_1,
-                                    image_2=image_2,
-                                    kesimpulan=kesimpulan,
-                                    user1=user1
-                                        )
-        bio = io.BytesIO()
-        docs.save(bio)
-        st.download_button(
-            label="Download file",
-            data=bio.getvalue(),
-            file_name=f'EvaluasiMar-{get_tanggal1.strftime("%Y%m%d")}.docx',
-            mime='docx'
-        )
-    except:
-        pass
+        try:
+            docs = evaluasi_cuaca_maritim(get_tanggal1,get_tanggal2,
+                                        jam=get_jam1,
+                                        jam2=get_jam2,
+                                        dasar_pertimbangan1=dasar_pertimbangan1,
+                                        dasar_pertimbangan2=dasar_pertimbangan2,
+                                        text_rendah=text_rendah,
+                                        text_sedang=text_sedang,
+                                        text_tinggi=text_tinggi,
+                                        text_sangattinggi=text_sangattinggi,
+                                        image_1=image_1,
+                                        image_2=image_2,
+                                        kesimpulan=kesimpulan,
+                                        user1=user1
+                                            )
+            st.success(f'Data berhasil tersimpan, silahkan download file')
+            bio = io.BytesIO()
+            docs.save(bio)
+            st.download_button(
+                label="Download file",
+                data=bio.getvalue(),
+                file_name=f'EvaluasiMar-{get_tanggal1.strftime("%Y%m%d")}.docx',
+                mime='docx'
+            )
+        except:
+            st.error('Mohon lengkapi data terlebih dahulu')
