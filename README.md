@@ -28,8 +28,8 @@ Open your CMD in current directory by right clicking in your file explorer and t
 - [x] Evaluasi Kondisi Cuaca 
 - [x] Internet
 - [x] Maritim
-- [ ] Radar
+- [x] Radar
 - [ ] Website
-- [ ] Add success check notification
-- [ ] 
+- [x] Add success check notification
+- [x] Publish to Streamlit
 - [ ] 

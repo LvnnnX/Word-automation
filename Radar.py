@@ -1,6 +1,6 @@
 from process import *
 
-def start_maritim():
+def start_radar():
     clear_background()
     with st.form(key='shift-form', clear_on_submit=False):
         user,user_file,user_nip = get_pegawai()
@@ -24,35 +24,34 @@ def start_maritim():
         st.success(f'Berhasil mengubah Hari dan Shift menjadi **:blue[{get_hari} {get_shift.lower()}]**')
     
     with st.form(key='maritim-form', clear_on_submit=False):
-        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Penginderaan Jarak Jauh<h3>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align:center;font-weight:bold;padding-bottom:0px;'>Penginderaan Jarak Jauh<h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align:center;font-weight:bold;padding-top:0px'>Interpretasi Citra Radar Cuaca<h3>", unsafe_allow_html=True)
         
-        selatbali = st.text_area(label='Dari interpretasi citra HF Radar Maritim, menunjukkan bahwa arus permukaan Selat Bali ', value='', key='selatbali')
+        desc = st.text_area(label='Deskripsi', value='', key='selatbali')
+        st.text_area(label='',value='Contoh Deskripsi : Berdasarkan citra radar secara umum wilayah Bali pada sore hingga malam hari kondisi cuaca cerah berawan.', label_visibility='collapsed',disabled=True, height=1)
         
-        selatlombok = st.text_area(label='Arus laut pada Selat Lombok ', value='', key='selatlombok')
+        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Gambar Citra Radar<h3>", unsafe_allow_html=True)
         
-        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Gambar HF Radar Maritim<h3>", unsafe_allow_html=True)
-        
-        _jam1 = get_jamkerja.split('-')[0] + 'WITA'
-        _jam2 = int(_jam1[0:2]) + 3
+        _jam1 = get_jamkerja.split('-')[0]
+        _jam2 = int(_jam1[0:2]) + 2
         if(_jam2>=24): _jam2 %= 24
-        _jam3 = _jam2 + 3
+        _jam3 = _jam2 + 2
         if(_jam3>=24):_jam3 %= 24
-        _jam2 = f'{_jam2:02.0f}' + '.00 WITA'
-        _jam3 = f'{_jam3:02.0f}' + '.00 WITA'
+        _jam4 = _jam3 + 2
+        if(_jam4>=24):_jam4 %= 24
+        _jam2 = f'{_jam2:02.0f}' + '.00'
+        _jam3 = f'{_jam3:02.0f}' + '.00'
+        _jam4 = f'{_jam4:02.0f}' + '.00'
 
         
         col1, col2 = st.columns(2, gap='small')
-        sb1 = col1.file_uploader(f'Selat Bali pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
+        rdr1 = col1.file_uploader(f'Citra Radar pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
         
-        sl1 = col2.file_uploader(f'Selat Lombok pukul {_jam1}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
+        rdr2 = col2.file_uploader(f'Citra Radar pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
         
-        sb2 = col1.file_uploader(f'Selat Bali pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
+        rdr3 = col1.file_uploader(f'Citra Radar pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
         
-        sl2 = col2.file_uploader(f'Selat Lombok pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
-        
-        sb3 = col1.file_uploader(f'Selat Bali pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
-        
-        sl3 = col2.file_uploader(f'Selat Lombok pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)       
+        rdr4= col2.file_uploader(f'Citra Radar pukul {_jam4}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)     
         
         st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         
@@ -61,7 +60,7 @@ def start_maritim():
         button = st.form_submit_button(label='Submit')
     if(button):
         try:
-            template_docs = get_docs('template-maritim.docx')
+            template_docs = get_docs('template-radar.docx')
             context = {}
             
             #Tanggal
@@ -70,22 +69,16 @@ def start_maritim():
             #Shift
             context['shift'] = get_jamkerja
             
-            #Selatbali
-            context['selatbali'] = selatbali
-            
-            #Selatlombok
-            context['selatlombok'] = selatlombok
+            #Descr
+            context['desc'] = desc
             
             #images
-            context['sb1'] = InlineImage(template_docs, sb1, width=Mm(54),height=Mm(31))
-            context['sl1'] = InlineImage(template_docs, sl1, width=Mm(54),height=Mm(31))
-            context['sb2'] = InlineImage(template_docs, sb2, width=Mm(54),height=Mm(31))
-            context['sl2'] = InlineImage(template_docs, sl2, width=Mm(54),height=Mm(31))
-            context['sb3'] = InlineImage(template_docs, sb3, width=Mm(54),height=Mm(31))
-            context['sl3'] = InlineImage(template_docs, sl3, width=Mm(54),height=Mm(31))
+            context['rdr1'] = InlineImage(template_docs, rdr1, height=Mm(28.5), width=Mm(60))
+            context['rdr2'] = InlineImage(template_docs, rdr2, height=Mm(28.5), width=Mm(60))
+            context['rdr3'] = InlineImage(template_docs, rdr3, height=Mm(28.5), width=Mm(60))
+            context['rdr4'] = InlineImage(template_docs, rdr4, height=Mm(28.5), width=Mm(60))
             
             #User
-            
             context['user'] = user
             
             context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user)])}'))
@@ -100,7 +93,7 @@ def start_maritim():
             st.download_button(
                     label="Download file",
                     data=bio.getvalue(),
-                    file_name=f'Maritim-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
+                    file_name=f'Radar-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
                     mime='docx'
                 )
             
