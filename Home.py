@@ -1,10 +1,10 @@
 from process import *
-import CekAlat
-import EvaluasiCuacaMaritim
-import EvaluasiPub
-import Internet
-import Maritim
-import Radar
+import home.CekAlat as CekAlat
+import home.EvaluasiCuacaMaritim as EvaluasiCuacaMaritim
+import home.EvaluasiPub as EvaluasiPub
+import home.Internet as Internet
+import home.Maritim as Maritim
+import home.Radar as Radar
 
 if __name__ == '__main__':
     with st.sidebar:
