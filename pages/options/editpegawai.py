@@ -1,5 +1,6 @@
 from library import *
 from process import *
+import home.get_ttd as ttd
 
 def find_filename(name):
     name = glob.glob(f'{ASSETS}/{name}.*')
@@ -27,8 +28,8 @@ def show_edit_menu():
         
         _nippegawai = col2.text_input(label='NIP Pegawai',key='nip-pegawai',value=str(df[df['Nama']==_namapegawai]['NIP'].values[0]))
         try:
-            ttd_image = get_image(find_filename(ttd_nama))
-            
+            ttd_image = get_image(get_filename_for_show(ttd_nama))
+            # st.write(ttd_image)
             col1.write('TTD Pegawai')
             
             col1.image(ttd_image,width=150)
