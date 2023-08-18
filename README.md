@@ -31,5 +31,6 @@ Open your CMD in current directory by right clicking in your file explorer and t
 - [x] Radar
 - [x] Website
 - [x] Radio
+- [ ] Satelit
 - [x] Add success check notification
 - [x] Publish to Streamlit
