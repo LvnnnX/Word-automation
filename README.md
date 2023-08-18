@@ -27,7 +27,7 @@ Open your CMD in current directory by right clicking in your file explorer and t
 - [x] Evaluasi Cuaca Maritim 
 - [x] Evaluasi Kondisi Cuaca 
 - [x] Internet
-- [x] Maritim
+- [ ] Maritim (Fix the jam in radar image)
 - [x] Radar
 - [x] Website
 - [x] Radio

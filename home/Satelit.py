@@ -1,6 +1,6 @@
 from process import *
 
-def start_maritim():
+def start_satelit():
     clear_background()
     with st.form(key='shift-form', clear_on_submit=False):
         user,user_file,user_nip = get_pegawai()
@@ -22,13 +22,21 @@ def start_maritim():
         st.markdown("<p style='font-size:10px'>*Klik tombol 'Check' untuk mengubah Hari dan Jam Kerja</p>", unsafe_allow_html=True)
     if form1_submitbutton:
         st.success(f'Berhasil mengubah Hari dan Shift menjadi **:blue[{get_hari} {get_shift.lower()}]**')
-    
+        
     with st.form(key='maritim-form', clear_on_submit=False):
         st.markdown("<h3 style='text-align:center;font-weight:bold;'>Penginderaan Jarak Jauh<h3>", unsafe_allow_html=True)
         
-        selatbali = st.text_area(label='Dari interpretasi citra HF Radar Maritim, menunjukkan bahwa arus permukaan Selat Bali ', value='', key='selatbali')
         
-        selatlombok = st.text_area(label='Arus laut pada Selat Lombok ', value='', key='selatlombok')
+        
+        awan = st.text_area(label='Dari interpretasi citra satelit cuaca Himawari-8, menunjukkan bahwa awan yang terbentuk di wilayah Bali adalah ', value='', key='awan')
+        
+        col1,col2,col3 = st.columns([2,1,2], gap='small')        
+        suhu1 = col1.text_input(label='Suhu puncak awan teramati berkisar antara', value='', key='selatlombok')
+        col2.text_input(label='',value='hingga',label_visibility='hidden',disabled=True)
+        suhu2 = col3.text_input(label='',value='',label_visibility='hidden',disabled=False)
+        
+        col1.markdown("<p style='font-size:10px'>Contoh pengisian : +60</p>", unsafe_allow_html=True)
+        col3.markdown("<p style='font-size:10px'>Contoh pengisian : -60</p>", unsafe_allow_html=True)
         
         st.markdown("<h3 style='text-align:center;font-weight:bold;'>Gambar HF Radar Maritim<h3>", unsafe_allow_html=True)
         
@@ -39,31 +47,31 @@ def start_maritim():
         if(_jam3>=24):_jam3 %= 24
         _jam2 = f'{_jam2:02.0f}' + '.00 WITA'
         _jam3 = f'{_jam3:02.0f}' + '.00 WITA'
-
         
         col1, col2 = st.columns(2, gap='small')
-        sb1 = col1.file_uploader(f'Selat Bali pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
+        cs1 = col1.file_uploader(f'Selat Bali pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
         
-        sl1 = col2.file_uploader(f'Selat Lombok pukul {_jam1}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
-        
-        col1, col2 = st.columns(2, gap='small')
-        sb2 = col1.file_uploader(f'Selat Bali pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
-        
-        sl2 = col2.file_uploader(f'Selat Lombok pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
+        cl1 = col2.file_uploader(f'Selat Lombok pukul {_jam1}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
         
         col1, col2 = st.columns(2, gap='small')
-        sb3 = col1.file_uploader(f'Selat Bali pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
+        cs2 = col1.file_uploader(f'Selat Bali pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
         
-        sl3 = col2.file_uploader(f'Selat Lombok pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)       
+        cl2 = col2.file_uploader(f'Selat Lombok pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
+        
+        col1, col2 = st.columns(2, gap='small')
+        cs3 = col1.file_uploader(f'Selat Bali pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
+        
+        cl3 = col2.file_uploader(f'Selat Lombok pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)
         
         st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         
-        user = st.selectbox('Dibuat Oleh', options=user, key='user')
+        user1 = st.selectbox(label='Dibuah Oleh', options=user, key='user1')
         
-        button = st.form_submit_button(label='Submit')
+        button = st.form_submit_button('Submit')
+        
     if(button):
         try:
-            template_docs = get_docs('template-maritim.docx')
+            template_docs = get_docs('template-satelit.docx')
             context = {}
             
             #Tanggal
@@ -72,31 +80,30 @@ def start_maritim():
             #Shift
             context['shift'] = get_jamkerja
             
-            #Selatbali
-            context['selatbali'] = selatbali
+            #Awan
+            context['awan'] = awan
             
-            #Selatlombok
-            context['selatlombok'] = selatlombok
+            #suhu
+            context['suhu1'] = suhu1
+            context['suhu2'] = suhu2
             
-            #images
-            context['sb1'] = InlineImage(template_docs, sb1, width=Mm(54),height=Mm(31))
-            context['sl1'] = InlineImage(template_docs, sl1, width=Mm(54),height=Mm(31))
-            context['sb2'] = InlineImage(template_docs, sb2, width=Mm(54),height=Mm(31))
-            context['sl2'] = InlineImage(template_docs, sl2, width=Mm(54),height=Mm(31))
-            context['sb3'] = InlineImage(template_docs, sb3, width=Mm(54),height=Mm(31))
-            context['sl3'] = InlineImage(template_docs, sl3, width=Mm(54),height=Mm(31))
+            context['cs1'] = InlineImage(template_docs, cs1, width=Mm(52.7),height=Mm(44.2))
+            context['cl1'] = InlineImage(template_docs, cl1, width=Mm(52.7),height=Mm(44.2))
+            context['cs2'] = InlineImage(template_docs, cs2, width=Mm(52.7),height=Mm(44.2))
+            context['cl2'] = InlineImage(template_docs, cl2, width=Mm(52.7),height=Mm(44.2))
+            context['cs3'] = InlineImage(template_docs, cs3, width=Mm(52.7),height=Mm(44.2))
+            context['cl3'] = InlineImage(template_docs, cl3, width=Mm(52.7),height=Mm(44.2))
             
-            #JAM
             context['jm1'] = _jam1
             context['jm2'] = _jam2
             context['jm3'] = _jam3
+            
             #User
+            context['user'] = user1
             
-            context['user'] = user
-            
-            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user)])}'))
-            
-            context['user_nip'] = user_nip[user.index(user)].replace('\'','')
+            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user1)])}'))
+                
+            context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
             
             template_docs.render(context=context)
             st.success('Data tersimpan, silahkan download file')
@@ -106,7 +113,7 @@ def start_maritim():
             st.download_button(
                     label="Download file",
                     data=bio.getvalue(),
-                    file_name=f'Maritim-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
+                    file_name=f'Satelit-{get_tanggal.strftime("%Y%m%d")}-{get_shift[0].upper()}.docx',
                     mime='docx'
                 )
             
