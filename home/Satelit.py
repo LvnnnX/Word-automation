@@ -49,17 +49,17 @@ def start_satelit():
         _jam3 = f'{_jam3:02.0f}' + '.00 WITA'
         
         col1, col2 = st.columns(2, gap='small')
-        cs1 = col1.file_uploader(f'Selat Bali pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
+        cs1 = col1.file_uploader(f'Citra Satelit (Enhance) pukul {_jam1}', type=['png','jpg','jpeg'], key='selatbali1', accept_multiple_files=False)
         
-        cl1 = col2.file_uploader(f'Selat Lombok pukul {_jam1}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
+        cl1 = col2.file_uploader(f'Citra Satelit (Cloud Classification) pukul {_jam1}', type=['png','jpg','jpeg'], key='selatlombok1', accept_multiple_files=False)
         
         col1, col2 = st.columns(2, gap='small')
-        cs2 = col1.file_uploader(f'Selat Bali pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
+        cs2 = col1.file_uploader(f'Citra Satelit (Enhance) pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
         
         cl2 = col2.file_uploader(f'Selat Lombok pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
         
         col1, col2 = st.columns(2, gap='small')
-        cs3 = col1.file_uploader(f'Selat Bali pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
+        cs3 = col1.file_uploader(f'Citra Satelit (Enhance) pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
         
         cl3 = col2.file_uploader(f'Selat Lombok pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)
         
