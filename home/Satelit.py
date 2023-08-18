@@ -56,12 +56,12 @@ def start_satelit():
         col1, col2 = st.columns(2, gap='small')
         cs2 = col1.file_uploader(f'Citra Satelit (Enhance) pukul {_jam2}', type=['png','jpg','jpeg'], key='selatbali2', accept_multiple_files=False)
         
-        cl2 = col2.file_uploader(f'Selat Lombok pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
+        cl2 = col2.file_uploader(f'Citra Satelit (Cloud Classification) pukul {_jam2}', type=['png','jpg','jpeg'], key='selatlombok2', accept_multiple_files=False)
         
         col1, col2 = st.columns(2, gap='small')
         cs3 = col1.file_uploader(f'Citra Satelit (Enhance) pukul {_jam3}', type=['png','jpg','jpeg'], key='selatbali3', accept_multiple_files=False)
         
-        cl3 = col2.file_uploader(f'Selat Lombok pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)
+        cl3 = col2.file_uploader(f'Citra Satelit (Cloud Classification) pukul {_jam3}', type=['png','jpg','jpeg'], key='selatlombok3', accept_multiple_files=False)
         
         st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         
