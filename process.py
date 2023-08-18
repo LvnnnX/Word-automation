@@ -129,7 +129,7 @@ def get_dataframe(nama_dataframe:str):
 def save_image(file_uploaded, name):
     if file_uploaded is not '':
         file_uploaded.name = name + '.' + file_uploaded.name.split('.')[-1]
-        with open(os.path.join(ASSETS,file_uploaded.name),"wb") as f:
+        with open(os.path.join(TTD,file_uploaded.name),"wb") as f:
             f.write(file_uploaded.getbuffer())
 
 def get_current_shift(jam_sekarang, shifts=translate_shift):
