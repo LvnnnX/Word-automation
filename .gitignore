@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 Word OG/
-
+Words OG/
 
 # Distribution / packaging
 .Python
