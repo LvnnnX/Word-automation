@@ -38,7 +38,7 @@ def start_satelit():
         col1.markdown("<p style='font-size:10px'>Contoh pengisian : +60</p>", unsafe_allow_html=True)
         col3.markdown("<p style='font-size:10px'>Contoh pengisian : -60</p>", unsafe_allow_html=True)
         
-        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Gambar HF Radar Maritim<h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align:center;font-weight:bold;'>Citra Satelit<h3>", unsafe_allow_html=True)
         
         _jam1 = get_jamkerja.split('-')[0] + 'WITA'
         _jam2 = int(_jam1[0:2]) + 3
