@@ -89,7 +89,7 @@ def start_radio():
             context['table'] = media
             
             #Judul
-            context['judul'] = judul
+            context['Judul'] = judul
             
             #isi
             context['isi'] = isi
