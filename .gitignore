@@ -7,6 +7,8 @@ __pycache__/
 *.so
 Word OG/
 Words OG/
+WoWs.py
+/output
 
 # Distribution / packaging
 .Python
