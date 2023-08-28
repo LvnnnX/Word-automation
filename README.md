@@ -29,6 +29,8 @@ Click on the **Network URL**.
 
 Now, you're ready to go!
 
+Oh! And one **Important Note**, Don't close the Commant Prompt while using the program ya!😇
+
 # Todo
 - [x] Options for Pegawai 
 - [x] Evaluasi Cuaca Maritim 
