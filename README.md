@@ -22,8 +22,8 @@ A Word Automation Program created for MEWS room in BMKG
   You can now view your Streamlit app in your browser.
   Local URL: http://localhost:8501
   Network URL: http://192.168.xxx.xxx:8501
-  Click on the **Network URL**.
 ```
+Click on the **Network URL**.
 
 (**BONUS**) To access this program locally (using the same connection, you can type the **Network URL** on other devices, we highly recommend using computer/laptop)
 
