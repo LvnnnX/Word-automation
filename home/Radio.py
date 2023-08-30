@@ -50,7 +50,7 @@ def start_radio():
         st.markdown("<p style='text-align:left;'><font color='red'>Waspada</font><p>", unsafe_allow_html=True)
         waspada = st.text_area(label='Waspada', value='', key='waspada',label_visibility='collapsed')
         
-        user = st.selectbox('Dibuat Oleh', options=user, key='user')
+        user1 = st.selectbox('Dibuat Oleh', options=user, key='user')
         
         button = st.form_submit_button(label='Submit')
     
@@ -72,15 +72,15 @@ def start_radio():
             context['shift'] = get_shift
             
             #User
-            context['user'] = user
+            context['user'] = user1
             try:
-                _user = user.split(',')[0]
+                _user = user1.split(',')[0]
             except:
-                _user = user
+                _user = user1
             
-            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user)])}"))
+            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f"{find_filename(user_file[user.index(user1)])}"))
             
-            context['user_nip'] = user_nip[user.index(user)].replace('\'','')
+            context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
             
             media = []
             for x in range(num_media):

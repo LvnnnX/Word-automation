@@ -58,7 +58,7 @@ def start_maritim():
         
         st.markdown("<p style='font-size:10px'>*Gambar wajib diisi agar file dapat di Download</p>", unsafe_allow_html=True)
         
-        user = st.selectbox('Dibuat Oleh', options=user, key='user')
+        user1 = st.selectbox('Dibuat Oleh', options=user, key='user')
         
         button = st.form_submit_button(label='Submit')
     if(button):
@@ -92,11 +92,11 @@ def start_maritim():
             context['jm3'] = _jam3
             #User
             
-            context['user'] = user
+            context['user'] = user1
             
-            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user)])}'))
+            context['user_ttd'] = InlineImage(template_docs, os.path.join(ASSETS, f'{find_filename(user_file[user.index(user1)])}'))
             
-            context['user_nip'] = user_nip[user.index(user)].replace('\'','')
+            context['user_nip'] = user_nip[user.index(user1)].replace('\'','')
             
             template_docs.render(context=context)
             st.success('Data tersimpan, silahkan download file')
