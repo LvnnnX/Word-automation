@@ -127,7 +127,7 @@ def get_dataframe(nama_dataframe:str):
     return df
 
 def save_image(file_uploaded, name):
-    if file_uploaded is not '':
+    if file_uploaded != '':
         file_uploaded.name = name + '.' + file_uploaded.name.split('.')[-1]
         with open(os.path.join(TTD,file_uploaded.name),"wb") as f:
             f.write(file_uploaded.getbuffer())
@@ -159,6 +159,33 @@ def change_tanggal(tanggal):
     tanggal[1] = translate_bulan[tanggal[1]]
     tanggal = ' '.join(tanggal)
     return tanggal
+
+# def fpb(num1, num2):
+#     if(num1 < 100 or num2 < 100):
+#         return 0,0
+    
+#     if num1 > num2:
+#         smaller = num2
+#     else:
+#         smaller = num1
+    
+#     fpb = 0
+    
+#     for i in range(1, smaller+1):
+#         if((num1%i == 0) and (num2%i == 0)):
+#             fpb = i
+    
+#     num1, num2 = num1/fpb, num2/fpb
+#     while(num1 > 100 and num2 > 100):
+#         num1-= fpb
+#         num2-= fpb
+    
+#     while(num1 < 100-fpb and num2 < 100-fpb):
+#         num1 += fpb
+#         num2 += fpb
+        
+#     return num1, num2
+    
 
 def make_table(num_rows:int, variables:list[int], context:dict, kwargs:dict):
         list_variables = []
