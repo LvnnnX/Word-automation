@@ -1,5 +1,5 @@
 
-# "implifying Word Processes: The All-in-One Word Automation Web System (WoWs)
+# Simplifying Word Processes: The All-in-One Word Automation Web System (WoWs)
 A Word Automation Program created for MEWS room in BMKG
 
 ## Installation
