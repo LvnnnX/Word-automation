@@ -72,6 +72,13 @@ def start_radar():
             #Descr
             context['desc'] = desc
             
+            #jam
+            context['jam1'] = _jam1
+            context['jam2'] = _jam2
+            context['jam3'] = _jam3
+            context['jam4'] = _jam4
+            
+            
             #images
             context['rdr1'] = InlineImage(template_docs, rdr1, height=Mm(28.5), width=Mm(60))
             context['rdr2'] = InlineImage(template_docs, rdr2, height=Mm(28.5), width=Mm(60))
