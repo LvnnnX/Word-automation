@@ -4,9 +4,9 @@ A Word Automation Program created for MEWS room in BMKG
 
 ## Installation
 
-1. Download [python](https://www.python.org/downloads/) first. We highly recommend using 3.9.x - 3.10.x version.
+1. Download [python](https://www.python.org/downloads/windows/) first. We highly recommend using 3.9.x - 3.10.x version.
 
-2. Install the [python](https://www.python.org/downloads/) file. **Don't forget to CHECKLIST(√) the "Add python.exe to PATH"**
+2. Install the [python](https://www.python.org/downloads/windows/) file. **Don't forget to CHECKLIST(√) the "Add python.exe to PATH"**
 
 3. Go to your directory where you want to install this program.
 
