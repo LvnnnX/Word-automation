@@ -8,6 +8,7 @@ import editpegawai as egw
 import hapuspegawai as hgw
 
 if __name__ == '__main__':
+    header()
     with st.sidebar:
         selected = option_menu(
             menu_title= None,

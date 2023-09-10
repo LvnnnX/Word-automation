@@ -39,6 +39,9 @@ def get_pegawai():
     user_nip = tuple(list_pegawai['NIP'].values())
     return user, user_filename, user_nip
 
+st.markdown('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">', unsafe_allow_html=True)
+st.markdown('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>', unsafe_allow_html=True)
+
 def clear_background():
     st.markdown(
     """
@@ -47,6 +50,7 @@ def clear_background():
     background-color=black;
 
 }
+
 .sidebar .sidebar-content {
     background-image: linear-gradient(#2e7bcf,#2e7bcf);
     color: white;
@@ -80,8 +84,8 @@ footer {visibility: hidden;}
 [class^="main css-k1vhr4 egzxvld3"]{
     background-color:#0e1117;
 }
-
 </style>
+
 """,
     unsafe_allow_html=True,
 )
@@ -95,6 +99,35 @@ div[data-modal-container='true'][key='Demo key'] > div:first-child > div:first-c
 }
 </style>
 """, unsafe_allow_html=True)
+
+def header():
+    st.header("Simplifying Word Processes 📔")
+    st.image("Logo.png")
+    st.text("""Meteorology Early Warning System""")
+    st.markdown(
+        """
+<style>
+
+
+    [data-testid^="stText"]{
+        font-size: 22px;
+        font-weight: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(10px);
+        transform: translateY(-100px);  
+    }
+    [data-testid^="stImage"]{
+        width: 7rem;
+        display: flex;
+        # justify-content: center;
+        align-items: center;
+    }
+</style>
+
+""", unsafe_allow_html=True)
+
 
 def get_docs(docs):
     docs = DocxTemplate(DOCS / docs)
