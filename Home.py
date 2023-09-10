@@ -10,7 +10,9 @@ import home.Website as Website
 import home.Satelit as Satelit
 
 if __name__ == '__main__':
+    header()
     with st.sidebar:
+
         selected = option_menu(
             menu_title= None,
             options=['Cek Alat','Evaluasi Cuaca Maritim','Evaluasi Kondisi Cuaca','Internet','Maritim','Radar','Satelit','Radio','Website'],
